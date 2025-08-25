@@ -1,2 +1,1 @@
-# Lyrify
 Working on this
