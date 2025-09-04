@@ -8,15 +8,25 @@ def GetLyrics(artist, title):
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
-        return data.get("lyrics", "Lyrics not found.")
+        return data.get("lyrics", None)
     else:
-        return "Error: Cannot find the lyrics."
+        return None
     
-    
+
 if __name__ == "__main__":
-    artist = input("Enter artist name: ")
-    title = input("Enter song title: ")
-    
-    lyrics = GetLyrics(artist, title)
-    print("\n Lyrics \n")
-    print(lyrics)
+    while True:
+        artist = input("Enter artist name: ")
+        title = input("Enter song title: ")
+        
+        lyrics = GetLyrics(artist, title)
+        
+        if lyrics:
+            print("\n Lyrics \n")
+            print(lyrics)
+            break
+        else:
+            print(f"\nLyrics cannot be found for: {artist} - {title}")
+            retry = input("Do you want to try again? (y/n): ").strip().lower()
+            if retry != "y":
+                print("Exiting program.")
+                break
